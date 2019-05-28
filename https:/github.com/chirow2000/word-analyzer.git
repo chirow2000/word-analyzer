@@ -1,0 +1,26 @@
+function getTokens(rawString) {
+  // NB: `.filter(Boolean)` removes any falsy items from an array
+  return rawString.toLowerCase().split(/[ ,!.";:-]+/).filter(Boolean).sort();
+}// this will return the paragraph in lower case, then split each word in the paragraph into an array, then sort the false item, then sort it. 
+
+function mostFrequentWord(text) {
+  let words = getTokens(text);
+  let wordFrequencies = {};
+  for (let i = 0; i <= words.length; i++) {// parameter which increases by 1 with the length of word
+    if (words[i] in wordFrequencies) {// add 1 when a word is repeated
+      wordFrequencies[words[i]]++;// count words in the array increamenting one at a time
+    } else {
+      wordFrequencies[words[i]] = 1; //if no repeat, assign 1 
+    }
+  }
+  let currentMaxKey = Object.keys(wordFrequencies)[0];// assign currentmaxkey variable to wordFrequency object to become an array to start counting from 0 
+  let currentMaxCount = wordFrequencies[currentMaxKey];//assign new variable to array
+
+  for (let word in wordFrequencies) {
+    if (wordFrequencies[word] > currentMaxCount) { //if the frequency of the word in the array is > the max count
+      currentMaxKey = word; // assigned maxKey to the word 
+      currentMaxCount = wordFrequencies[word]; // assign max count to the most frequent word
+    }
+  }
+  return currentMaxKey;
+}
